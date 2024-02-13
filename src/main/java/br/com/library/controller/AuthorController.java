@@ -5,10 +5,7 @@ import br.com.library.dto.request.CreateAuthorDTO;
 import br.com.library.service.interfaces.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController("author")
@@ -32,8 +29,27 @@ public class AuthorController {
             return ResponseEntity.created(location).body(createdAuthor);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while create author: " + e.getMessage());
+                    .body(e.getMessage());
         }
     }
 
+    @GetMapping("/v1/findById/{id}")
+    ResponseEntity<?> findAuthorById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(authorService.findById(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/v1/all")
+    ResponseEntity<?> getAllAuthors() {
+        try {
+            return ResponseEntity.ok(authorService.findAllAuthors());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
 }
