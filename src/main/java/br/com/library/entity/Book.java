@@ -1,12 +1,11 @@
-package br.com.library.dto;
+package br.com.library.entity;
 
-import br.com.library.dto.info.Status;
+import br.com.library.entity.info.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 

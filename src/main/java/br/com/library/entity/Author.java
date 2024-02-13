@@ -1,31 +1,28 @@
-package br.com.library.dto;
+package br.com.library.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "genre")
-public class Genre {
+@Table(name = "author")
+public class Author implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "genre_id")
+    @Column(name = "author_id")
     private UUID id;
-    @Column(name = "genre")
-    private String genre;
+    @Column(name = "name")
+    private String name;
     @Column(name = "created_at")
     private Timestamp createdAt;
     @Column(name = "updated_at")
     private Timestamp updatedAt;
-    @ManyToMany(mappedBy = "genres")
-    private Set<Book> books;
 
     @PrePersist
     public void prePersist() {
@@ -38,4 +35,5 @@ public class Genre {
         this.createdAt = new Timestamp(System.currentTimeMillis());
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
+
 }
